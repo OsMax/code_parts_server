@@ -24,10 +24,10 @@ const userSchema = new Schema(
       default: "",
     },
     token: String,
-    avatarURL: {
-      type: String,
-      default: "",
-    },
+    // avatarURL: {
+    //   type: String,
+    //   default: "",
+    // },
     verificationToken: {
       type: String,
       default: "",

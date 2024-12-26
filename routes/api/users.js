@@ -19,7 +19,7 @@ const { schema } = require("../../models/user");
 
 const router = express.Router();
 
-router.post("/register", upload.single("avatar"), register);
+router.post("/register", register);
 
 router.post("/login", validateBody(schema.authSchema), login);
 

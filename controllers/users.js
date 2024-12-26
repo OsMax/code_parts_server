@@ -22,9 +22,9 @@ const { SECRET_KEY } = process.env;
 // ================================================================================================
 
 const register = async (req, res, next) => {
-  const { file } = req;
-  const info = JSON.parse(req.body.info);
-  console.log(info.email);
+  // const { file } = req;
+  const info = req.body;
+  console.log(info);
 
   const hashPassword = await bcrypt.hash(info.password, 10);
 
@@ -35,8 +35,8 @@ const register = async (req, res, next) => {
   const newUser = await User.create({
     ...info,
     password: hashPassword,
-    avatarURL:
-      "https://res.cloudinary.com/dykzy8ppw/image/upload/v1714261580/cookbook/avatarDefault.png",
+    // avatarURL:
+    //   "https://res.cloudinary.com/dykzy8ppw/image/upload/v1714261580/cookbook/avatarDefault.png",
   });
   // console.log(newUser.id);
   const { id } = newUser;
@@ -50,27 +50,27 @@ const register = async (req, res, next) => {
     name: newUser.name,
     avatarURL: newUser.avatarURL,
   };
-  // console.log(newUser.token, user);
+  // // console.log(newUser.token, user);
 
-  if (file) {
-    const { path: tempUpload, originalname } = req.file;
-    const fileName = originalname.split(".");
-    const newFileName = path.join(
-      "temp",
-      `${newUser.id}` + "." + `${fileName[1]}`
-    );
+  // if (file) {
+  //   const { path: tempUpload, originalname } = req.file;
+  //   const fileName = originalname.split(".");
+  //   const newFileName = path.join(
+  //     "temp",
+  //     `${newUser.id}` + "." + `${fileName[1]}`
+  //   );
 
-    await Jimp.read(tempUpload).then((ava) =>
-      ava.resize(250, 250).write(newFileName)
-    );
-    await fs.unlink(tempUpload);
+  //   await Jimp.read(tempUpload).then((ava) =>
+  //     ava.resize(250, 250).write(newFileName)
+  //   );
+  //   await fs.unlink(tempUpload);
 
-    const avatar = await uploadImage(newFileName);
-    await fs.unlink(newFileName);
+  //   const avatar = await uploadImage(newFileName);
+  //   await fs.unlink(newFileName);
 
-    await User.findByIdAndUpdate(newUser.id, { avatarURL: avatar.url });
-    user.avatarURL = avatar.url;
-  }
+  //   await User.findByIdAndUpdate(newUser.id, { avatarURL: avatar.url });
+  //   user.avatarURL = avatar.url;
+  // }
 
   res.status(201).json({
     token,

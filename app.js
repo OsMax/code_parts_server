@@ -9,6 +9,7 @@ const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
 const userRouter = require("./routes/api/users");
+const listRouter = require("./routes/api/list");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/api/users", userRouter);
+app.use("/api/list", listRouter);
 
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

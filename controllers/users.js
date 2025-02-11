@@ -24,7 +24,7 @@ const { SECRET_KEY } = process.env;
 const register = async (req, res, next) => {
   // const { file } = req;
   const info = req.body;
-  console.log(info);
+  // console.log(info);
 
   const hashPassword = await bcrypt.hash(info.password, 10);
 
